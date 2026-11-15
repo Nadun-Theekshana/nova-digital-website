@@ -1,0 +1,1110 @@
+/* =====================================================
+   NOVA DIGITAL – STYLESHEET
+   Sections:
+   1.  Variables & Reset
+   2.  Reusable Components
+   3.  Header / Navigation (CSS-only mobile menu)
+   4.  Hero
+   5.  About
+   6.  Cards (About, Services, Why Us, Principles)
+   7.  Portfolio
+   8.  Call To Action
+   9.  Contact
+   10. Footer
+   11. Responsive (Tablet & Mobile)
+   ===================================================== */
+
+
+/* ============ 1. VARIABLES & RESET ============ */
+:root {
+  --navy: #0b1030;            /* dark backgrounds */
+  --purple-deep: #2a1065;     /* deep purple for gradients */
+  --violet: #7c3aed;          /* main accent */
+  --indigo: #4f46e5;          /* second accent */
+  --violet-light: #a78bfa;    /* accent on dark backgrounds */
+  --blue-light: #60a5fa;      /* electric-blue accent on dark */
+  --white: #ffffff;
+  --grey-100: #f4f5fb;        /* light-grey section background */
+  --grey-200: #e4e7f4;        /* borders */
+  --field-border: #838aab;    /* form field borders (visible enough for accessibility) */
+  --text-dark: #1b1f3b;       /* main text on light backgrounds */
+  --text-muted: #565d80;      /* softer text on light backgrounds */
+  --text-on-dark: #c9cdea;    /* text on dark backgrounds */
+
+  --gradient-main: linear-gradient(135deg, var(--violet), var(--indigo));
+  --gradient-dark: linear-gradient(135deg, var(--navy) 0%, var(--purple-deep) 100%);
+
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(27, 31, 59, 0.08);
+  --shadow-hover: 0 16px 40px rgba(79, 70, 229, 0.18);
+
+  --font-heading: "Sora", Arial, sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;   /* stops the sticky header covering section titles */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background-color: var(--white);
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  height: auto;      /* keeps the shape correct now that the images have width/height attributes */
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Visible focus outline for keyboard users.
+   Dark violet on light backgrounds; light violet or white where the background is dark or purple. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+.site-header a:focus-visible,
+.hero a:focus-visible,
+.section-dark a:focus-visible,
+.site-footer a:focus-visible {
+  outline-color: var(--violet-light);
+}
+
+.cta-box a:focus-visible,
+.skip-link:focus-visible {
+  outline-color: var(--white);
+}
+
+/* Text that is hidden on screen but still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
+
+
+/* ============ 2. REUSABLE COMPONENTS ============ */
+.container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.section-light { background-color: var(--white); }
+.section-grey  { background-color: var(--grey-100); }
+.section-dark  { background: var(--gradient-dark); color: var(--text-on-dark); }
+
+.section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 50px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 2.3rem;
+}
+
+.section-dark h2,
+.section-dark h3 {
+  color: var(--white);
+}
+
+.eyebrow {
+  color: var(--violet);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.section-dark .eyebrow {
+  color: var(--violet-light);
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--violet-light), var(--blue-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gradient-main);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 24px rgba(124, 58, 237, 0.4);
+}
+
+.btn-outline-light {
+  border-color: var(--violet-light);
+  color: var(--white);
+}
+
+.btn-outline-light:hover {
+  background-color: var(--violet-light);
+  color: var(--navy);
+}
+
+.btn-white {
+  background-color: var(--white);
+  color: var(--indigo);
+}
+
+.btn-white:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* "Learn More" / "View Project" links */
+.text-link {
+  display: inline-block;
+  color: var(--violet);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.text-link:hover {
+  color: var(--indigo);
+  transform: translateX(4px);
+}
+
+.demo-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* Icon circle used by all cards */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: var(--gradient-main);
+  color: var(--white);
+}
+
+.icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-small {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+
+/* ============ 3. HEADER / NAVIGATION ============ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(11, 16, 48, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Skip link: hidden until focused with the keyboard */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background-color: var(--violet);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* Text-based logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--violet), var(--blue-light));
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.logo-text span {
+  color: var(--violet-light);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  color: var(--text-on-dark);
+  font-weight: 500;
+  font-size: 0.93rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+}
+
+.nav-menu .btn {
+  padding: 10px 24px;
+}
+
+/* Hidden checkbox + hamburger button (only used on small screens) */
+.nav-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.nav-toggle-label {
+  display: none;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--white);
+  transition: transform 0.3s ease, background-color 0.3s ease, top 0.3s ease;
+}
+
+.hamburger {
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after  { top: 7px; }
+
+
+/* ============ 4. HERO ============ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 90px 0 100px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.2), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(124, 58, 237, 0.3), transparent 45%),
+    var(--gradient-dark);
+  color: var(--text-on-dark);
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.hero-text {
+  flex: 1.05;
+}
+
+.tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  margin-bottom: 22px;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 50px;
+  background-color: rgba(124, 58, 237, 0.15);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.tagline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--blue-light);
+}
+
+.hero-text h1 {
+  color: var(--white);
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  max-width: 520px;
+  margin-bottom: 34px;
+  font-size: 1.05rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero-image {
+  position: relative;
+  flex: 1;
+}
+
+.hero-image img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 6 / 5;      /* matches the image shape, so it never distorts */
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Small decorative design elements */
+.shape {
+  position: absolute;
+  z-index: 0;
+}
+
+.shape-ring {
+  top: -26px;
+  right: -26px;
+  width: 120px;
+  height: 120px;
+  border: 3px solid var(--violet-light);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.shape-dots {
+  bottom: -24px;
+  left: -24px;
+  width: 130px;
+  height: 130px;
+  background-image: radial-gradient(var(--blue-light) 2px, transparent 2px);
+  background-size: 16px 16px;
+  opacity: 0.6;
+}
+
+
+/* ============ 5. ABOUT ============ */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.about-image,
+.about-text {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.about-text h2 {
+  margin-bottom: 18px;
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+
+/* ============ 6. CARDS ============ */
+.card-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-col  { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  padding: 32px 26px;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--violet-light);
+  box-shadow: var(--shadow-hover);
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Cards on the dark "Why Choose Us" section */
+.card-dark {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+}
+
+.card-dark:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.card-dark p {
+  color: var(--text-on-dark);
+}
+
+
+/* ============ 7. PORTFOLIO ============ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 on desktop and tablet, 1 on mobile (see section 11) */
+  gap: 28px;
+}
+
+.project-card {
+  overflow: hidden;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  aspect-ratio: 10 / 7;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-category {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 14px;
+  border-radius: 50px;
+  background-color: rgba(11, 16, 48, 0.85);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.project-body {
+  padding: 24px;
+}
+
+.concept-label {
+  color: var(--violet);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.project-body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.project-body p:not(.concept-label) {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+/* Replaces the old placeholder "View Project" links: these fictional concepts have no demo page */
+.project-body p.concept-note {
+  margin-bottom: 0;
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+
+/* ============ 8. CALL TO ACTION ============ */
+.cta-section {
+  padding: 70px 0;
+}
+
+.cta-box {
+  position: relative;
+  overflow: hidden;
+  padding: 64px 32px;
+  border-radius: 28px;
+  background: var(--gradient-main);
+  text-align: center;
+  color: var(--white);
+}
+
+/* Decorative circles */
+.cta-box::before,
+.cta-box::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cta-box::before {
+  width: 260px;
+  height: 260px;
+  top: -100px;
+  right: -60px;
+}
+
+.cta-box::after {
+  width: 200px;
+  height: 200px;
+  bottom: -90px;
+  left: -50px;
+}
+
+.cta-box h2,
+.cta-box p,
+.cta-box .btn {
+  position: relative;    /* keeps the content above the decorative circles */
+  z-index: 1;
+}
+
+.cta-box h2 {
+  margin-bottom: 12px;
+}
+
+.cta-box p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  font-size: 1.05rem;
+}
+
+
+/* ============ 9. CONTACT ============ */
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 32px;
+  background-color: var(--grey-100);
+  border-radius: var(--radius);
+}
+
+.demo-badge {
+  align-self: flex-start;
+  padding: 3px 14px;
+  border-radius: 50px;
+  background-color: rgba(124, 58, 237, 0.12);
+  color: var(--indigo);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.info-item h3 {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.info-item p {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 32px;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--grey-100);
+  border: 1.5px solid var(--field-border);
+  border-radius: 12px;
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+/* Placeholder text: darker than the browser default so it is easier to read */
+.contact-form ::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--violet);
+  background-color: var(--white);
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form .btn {
+  align-self: flex-start;
+}
+
+.form-note {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.req {
+  color: var(--violet);
+}
+
+/* Demo message: hidden until "Send Message" is pressed (the page jumps to it using :target) */
+.form-result {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: rgba(124, 58, 237, 0.12);
+  color: var(--indigo);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-result:target {
+  display: block;
+}
+
+
+/* ============ 10. FOOTER ============ */
+.site-footer {
+  padding-top: 64px;
+  background-color: var(--navy);
+  color: var(--text-on-dark);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  gap: 40px;
+  padding-bottom: 44px;
+}
+
+.footer-brand p {
+  max-width: 320px;
+  margin-top: 16px;
+  font-size: 0.93rem;
+}
+
+.footer-column h3 {
+  margin-bottom: 16px;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.footer-column li {
+  margin-bottom: 8px;
+  font-size: 0.93rem;
+}
+
+.footer-column a {
+  transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+  color: var(--violet-light);
+}
+
+.footer-small {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.copyright {
+  padding: 22px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+
+/* ============ 11. RESPONSIVE DESIGN ============ */
+
+/* ----- Tablets (up to 992px) ----- */
+@media (max-width: 992px) {
+  .section {
+    padding: 70px 0;
+  }
+
+  .hero-text h1 {
+    font-size: 2.7rem;
+  }
+
+  .hero-content,
+  .about-content {
+    gap: 40px;
+  }
+
+  .four-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Contact info and form stack here so the form fields never get too narrow */
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Mobile menu (CSS only) ---- */
+  .site-header {
+    position: relative;        /* the menu drops down below the header */
+  }
+
+  .nav-toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .nav-menu {
+    display: none;             /* hidden until the checkbox is ticked */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 18px 24px 28px;
+    background-color: var(--navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .nav-toggle:checked ~ .nav-menu {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px 8px;
+    font-size: 1rem;
+  }
+
+  .nav-menu .btn {
+    text-align: center;
+  }
+
+  /* Hamburger turns into an "X" when open */
+  .nav-toggle:checked + .nav-toggle-label .hamburger {
+    background-color: transparent;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle:checked + .nav-toggle-label .hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .nav-toggle:focus-visible + .nav-toggle-label {
+    outline: 3px solid var(--violet-light);
+  }
+}
+
+/* ----- Small tablets only (769px to 992px): slightly tighter cards so headings wrap evenly ----- */
+@media (min-width: 769px) and (max-width: 992px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+  }
+}
+
+/* ----- Mobile (up to 768px) ----- */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 0 80px;
+  }
+
+  /* Stack hero and about sections vertically */
+  .hero-content,
+  .about-content {
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .hero-text,
+  .hero-image,
+  .about-image,
+  .about-text {
+    width: 100%;
+    flex: none;
+  }
+
+  .hero-text h1 {
+    font-size: 2.3rem;
+  }
+
+  h2 {
+    font-size: 1.9rem;
+  }
+
+  .three-col,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-box {
+    padding: 48px 24px;
+  }
+}
+
+/* ----- Small phones (up to 520px) ----- */
+@media (max-width: 520px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .nav-menu {
+    padding: 18px 18px 26px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;   /* stack the two buttons full width */
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .four-col,
+  .footer-grid,
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info,
+  .contact-form {
+    padding: 24px 20px;
+  }
+
+  .shape-ring {
+    right: -10px;
+  }
+
+  .shape-dots {
+    left: -10px;
+  }
+}
